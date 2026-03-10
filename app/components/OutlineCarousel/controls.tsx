@@ -1,0 +1,232 @@
+"use client";
+
+import "./controls.css";
+import { cn } from "@/app/lib/utils";
+import gsap from "gsap";
+import { CustomEase } from "gsap/CustomEase";
+import Draggable from "gsap/Draggable";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { useEffect, useState } from "react";
+
+export const Controls = ({ activeSection, setActiveSection, isRunning, setIsRunning }) => {
+
+    useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, CustomEase, Draggable);
+
+        const outlineSection = () => document.querySelector(".outline-section");
+
+        // ── Appear timeline ──
+        const appearTl = gsap.timeline({
+            paused: true,
+        });
+
+        // ── Disappear timeline ──
+        const disappearTl = gsap.timeline({
+            paused: true,
+        });
+
+        new CustomEase("wow", "0.23, 1, 0.32, 1");
+
+        // ── ScrollTrigger: toggle appear / disappear ──
+        new ScrollTrigger({
+            trigger: ".outline-control-container",
+            start: "top center",
+            end: "bottom center",
+            onEnter: () => { disappearTl.pause(); appearTl.restart(); },
+            onLeaveBack: () => { appearTl.pause(); disappearTl.restart(); },
+            onLeave: () => { appearTl.pause(); disappearTl.restart(); },
+            onEnterBack: () => { disappearTl.pause(); appearTl.restart(); },
+            fastScrollEnd: true,
+            preventOverlaps: true,
+        });
+
+        // ── Appear: scale in control pill ──
+        appearTl
+            .add("appear")
+            .fromTo(
+                ".outline-control-inner",
+                { scale: 0, y: 450 },
+                { y: 0, scale: 1, duration: 0.8, ease: "back.out" },
+                "appear"
+            )
+            .to(".kekw", { scale: 1.5, duration: 0.4, ease: "back.out" }, "appear")
+            .to(".kekw", { scale: 1, duration: 0.3, ease: "back.out" })
+            .set(".kekw", { opacity: 0 });
+
+        // ── Appear: expand tabs & slide play button ──
+        appearTl
+            .fromTo(
+                ".outline-control-inner .tabs",
+                { width: "56px", x: 0 },
+                { width: "164px", x: "-95px", duration: 0.5, ease: "back.out" },
+                "appear+=0.8"
+            )
+            .fromTo(
+                ".outline-control-inner .play-pause",
+                { x: 0 },
+                { x: "85px", duration: 0.5, ease: "back.out" },
+                "appear+=0.8"
+            );
+
+        // ── Appear: slide in dots from right (all at once) ──
+        appearTl.fromTo(
+            ".outline-control-inner .dot",
+            { autoAlpha: 0, x: 20 },
+            { autoAlpha: 1, x: 0, duration: 0.2, ease: "power2.out" }, "appear+=0.9"
+        );
+
+        // ── Disappear: fade dots → collapse tabs → scale out ──
+        disappearTl
+            .add("disappear")
+            .to(".outline-control-container .dot", { autoAlpha: 0, x: 20, duration: 0.2 })
+            .to(
+                ".outline-control-inner .tabs",
+                { width: "56px", x: 0, duration: 0.5, ease: "power2.inOut" },
+                "disappear"
+            )
+            .to(
+                ".outline-control-inner .play-pause",
+                { x: 0, duration: 0.5, ease: "power2.inOut" },
+                "disappear"
+            )
+            .to(".outline-control-inner", { scale: 0, duration: 0.4, ease: "power2.inOut" });
+
+        // ── Auto-advance on dot animation end ──
+        document.querySelectorAll(".dot-inner").forEach((d, index) => {
+            (d as HTMLElement).onanimationend = () => {
+                activateSection((index + 1) % 4);
+            };
+        });
+
+        // ── Pause on section click (desktop only) ──
+        document.querySelectorAll(".outline-section .section").forEach((s) => {
+            s.addEventListener("click", () => {
+                if (window.innerWidth < 1024) return;
+                setIsRunning(false);
+            });
+        });
+
+        return () => {
+            appearTl.kill();
+        };
+    }, []);
+
+    const activateSection = (index: number) => {
+        setActiveSection(index);
+
+        document.querySelectorAll(".dot-inner")[index].classList.add("active");
+
+        const sections = document.querySelectorAll(".section");
+        const section = sections[index] as HTMLElement;
+
+        if (window.innerWidth < 1024) {
+            gsap.to(".section-container", {
+                duration: 1,
+                // scrollLeft: -section.offsetLeft,
+                scrollTo: {
+                    x: section.offsetLeft,
+                },
+                ease: "wow",
+            });
+        } else {
+            gsap.to(".section-container", {
+                duration: 1,
+                x: -section.offsetLeft,
+                ease: "wow",
+            });
+        }
+
+        // if scroll snap has ended
+    };
+
+    return (
+        <div className="outline-control-container pointer-events-none absolute inset-0 z-20 flex my-8 justify-center items-end">
+            <div className="outline-control-inner pointer-events-auto scale-0 translate-y-8 sticky bottom-12 h-14 w-14 rounded-full">
+                <div className="relative">
+                    <div className="tabs  h-14 rounded-full bg-neutral-200/50 backdrop-blur flex items-center">
+                        <div className="inline-flex h-full w-full items-center justify-center rounded-full  px-4">
+                            <button
+                                onClick={() => activateSection(0)}
+                                className="invisible relative w-auto dot flex h-2 mx-2  items-center justify-center cursor-pointer"
+                            >
+                                <div
+                                    className={cn(
+                                        "dot-inner",
+                                        activeSection == 0 ? "min-w-[44px] active" : "min-w-[8px]"
+                                    )}
+                                ></div>
+                            </button>
+                            <button
+                                onClick={() => activateSection(1)}
+                                className="invisible relative w-auto dot flex h-2 mx-2 items-center justify-center cursor-pointer"
+                            >
+                                <div
+                                    className={cn(
+                                        "dot-inner",
+                                        activeSection == 1 ? "min-w-[44px] active" : "min-w-[8px]"
+                                    )}
+                                ></div>
+                            </button>
+                            <button
+                                onClick={() => activateSection(2)}
+                                className="invisible relative w-auto dot flex h-2 mx-2 items-center justify-center cursor-pointer"
+                            >
+                                <div
+                                    className={cn(
+                                        "dot-inner",
+                                        activeSection == 2 ? "min-w-[44px] active" : "min-w-[8px]"
+                                    )}
+                                ></div>
+                            </button>
+                            <button
+                                onClick={() => activateSection(3)}
+                                className="invisible relative w-auto dot flex h-2 mx-2 items-center justify-center cursor-pointer"
+                            >
+                                <div
+                                    className={cn(
+                                        "dot-inner",
+                                        activeSection == 3 ? "min-w-[44px] active" : "min-w-[8px]"
+                                    )}
+                                ></div>
+                            </button>
+                        </div>
+                    </div>
+                    <button
+                        onClick={() => {
+                            setIsRunning((before) => !before);
+
+                        }}
+                        className=" play-pause absolute top-0 flex h-14 w-14 items-center justify-center rounded-full bg-neutral-200/50  backdrop-blur  "
+                    >
+                        {isRunning ? (
+                            <svg
+                                width="19"
+                                height="25"
+                                viewBox="0 0 10 13"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="invisible dot text-black pause-button"
+                            >
+                                <g clipPath="url(#clip0_27_83)">
+                                    <path
+                                        d="M1.03906 12.7266H2.82031C3.5 12.7266 3.85938 12.3672 3.85938 11.6797V1.03906C3.85938 0.328125 3.5 0 2.82031 0H1.03906C0.359375 0 0 0.359375 0 1.03906V11.6797C0 12.3672 0.359375 12.7266 1.03906 12.7266ZM6.71875 12.7266H8.49219C9.17969 12.7266 9.53125 12.3672 9.53125 11.6797V1.03906C9.53125 0.328125 9.17969 0 8.49219 0H6.71875C6.03125 0 5.67188 0.359375 5.67188 1.03906V11.6797C5.67188 12.3672 6.03125 12.7266 6.71875 12.7266Z"
+                                        fill="currentColor"
+                                    ></path>
+                                </g>
+                            </svg>
+                        ) : (
+                            <svg
+                                className="invisible dot text-black play-button"
+                                viewBox="0 0 56 56"
+                            >
+                                <path d="M20.8,36V20c0-1.6,1-2.5,2.3-2.5c0.7,0,1.1,0.1,1.7,0.5l13.4,7.7c1.2,0.7,1.8,1.2,1.8,2.3 c0,1.1-0.6,1.6-1.8,2.3L24.8,38c-0.6,0.4-1,0.5-1.7,0.5C21.8,38.5,20.8,37.6,20.8,36"></path>
+                            </svg>
+                        )}
+                    </button>
+                    <div className="absolute -z-10 rounded-full inset-0 bg-fch kekw"></div>
+                </div>
+            </div>
+        </div>
+    );
+};
