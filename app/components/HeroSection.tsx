@@ -41,7 +41,7 @@ export const HeroSection = () => {
             })
                 .to("[data-hero='h2']", { autoAlpha: 1, y: 0, duration: 0.8 }, "<0.3")
                 .to("[data-hero='p']", { autoAlpha: 1, y: 0, duration: 0.8 }, "<0.2")
-                .to("[data-hero='mascot']", { autoAlpha: 1, y: 0, x: 0, scale: 1, duration: 0.5, ease: "power2.out" }, "<0.2")
+                .to("[data-hero='mascot']", { autoAlpha: 1, y: 0, x: 0, scale: 1, duration: 0.5, ease: "power4.out", rotate: 10 }, "<0.1")
                 .to("[data-hero='cta']", { autoAlpha: 1, y: 0, duration: 0.8 }, "<0.2")
                 ;
         }, el);
