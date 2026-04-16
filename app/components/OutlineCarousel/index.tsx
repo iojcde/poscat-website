@@ -39,7 +39,7 @@ export const Carousel = ({ childSections }: { childSections: React.ReactNode[] }
 
         const st = ScrollTrigger.create({
             trigger: el,
-            start: "top 40%",
+            start: "top 70%",
             end: "bottom 30%",
             onEnter: enter,
             onEnterBack: enter,
@@ -95,17 +95,17 @@ export const Carousel = ({ childSections }: { childSections: React.ReactNode[] }
 
 
     return (
-        <div ref={containerRef} className={`outline-section pt-12 pb-12 overflow-clip cursor-pointer ${isRunning ? 'running' : ''}`}>
+        <div ref={containerRef} className={`outline-section pt-12 pb-12 overflow-clip ${isRunning ? 'running' : ''}`}>
             <div className="max-w-300 mx-auto px-0 sm:px-6 h-full w-full ">
                 <div className="px-6 sm:px-0">
                     <h2 className="text-4xl font-bold">일단 핵심부터.</h2>
                 </div>
                 <div className="mt-10 w-full relative pb-32">
-                    <div className="section-container snap-x snap-mandatory  overflow-x-scroll lg:overflow-visible   ">
+                    <div className="section-container snap-x snap-mandatory   overflow-x-scroll lg:overflow-visible   ">
                         <div className="section-list  flex items-stretch gap-6 h-full">
                             {
                                 childSections.map((child, index) => (
-                                    <div key={index} onClick={() => activateSection(index)} className={`section min-h-[40rem] overflow-clip relative snap-center bg-stone-100/90  rounded-[1.5rem] min-w-full  dark w-full flex items-center text-3xl justify-center squircle`}>
+                                    <div key={index} onClick={() => activateSection(index)} className={`section min-h-[40rem] overflow-clip relative snap-center bg-stone-50  rounded-[1.5rem] min-w-full  dark w-full flex items-center text-3xl justify-center squircle`}>
                                         {child}
                                     </div>
                                 ))

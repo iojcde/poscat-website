@@ -66,20 +66,20 @@ body {
 
 .sweep-algorithm {
   background-image: linear-gradient(to bottom, #0a0a0a 0%, #0a0a0a 30%, #f97316 45%, #f43f5e 60%, #f43f5e 100%);
-  background-size: 100% 300%;
+  background-size: 100% 400%;
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  animation: gradient-sweep-up 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: gradient-sweep-up 1.6s linear forwards;
   animation-play-state: paused;
 }
 
 .sweep-ai {
   background-image: linear-gradient(to bottom, #0a0a0a 0%, #0a0a0a 30%, #3b82f6 45%, #8b5cf6 60%, #8b5cf6 100%);
-  background-size: 100% 300%;
+  background-size: 100% 400%;
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  animation: gradient-sweep-up 1.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: gradient-sweep-up 1.6s linear forwards;
   animation-play-state: paused;
 }

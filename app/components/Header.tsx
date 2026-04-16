@@ -8,8 +8,8 @@ const navigation = [
 
 export default function Header() {
     return (
-        <header className="fixed inset-x-0 top-0 z-50 md:px-6 bg-white/80 backdrop-blur-[20px] saturate-180">
-            <div className="mx-auto flex max-w-300 items-center justify-between rounded-full px-4 py-2 md:px-6">
+        <header className="fixed inset-x-0 top-0 z-50 bg-white/80 backdrop-blur-[20px] saturate-180 border-b border-stone-200/80">
+            <div className="mx-auto flex items-center justify-between rounded-full px-4 max-w-300 py-2 md:px-6">
                 <a href="#story" className="flex min-w-0 items-center gap-1">
 
                     <Image

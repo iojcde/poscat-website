@@ -46,12 +46,14 @@ export const HeroSection = () => {
         return () => ctx.revert();
     }, []);
 
-    return (<div className="bg-stone-50">
+    return (<div className="relative bg-stone-50 shadow-inner">
         <section
             ref={heroRef}
             id="story"
-            className="mx-auto flex max-w-300 flex-col justify-center px-6 pt-24 lg:pt-32 pb-32 mb-16 text-center relative md:px-10 lg:px-12 "
-        > <NyanCat width={320} className="mx-auto bg-postech/10 rounded-lg" />
+            className="mx-auto flex max-w-300 flex-col justify-center  px-6 pt-24 lg:pt-32 pb-32 mb-16  relative md:px-10 lg:px-12 "
+        ><img src="/mascot.png" className="absolute inset-0 mt-auto right-20 -bottom-10 max-w-200 opacity-100 ml-auto
+            " />
+
             <h1
                 data-hero="h1"
                 className="text-5xl lg:text-6xl font-extrabold cursor-pointer select-none [&>*]:-m-[1px] pt-10 font-yuruka text-rose-500/90"
@@ -74,7 +76,7 @@ export const HeroSection = () => {
 
             <p
                 data-hero="p"
-                className="mx-auto mt-6 max-w-xl text-base lg:text-xl leading-relaxed text-stone-600"
+                className="mt-5 max-w-xl text-base lg:text-xl leading-relaxed text-stone-500"
                 style={{ visibility: "hidden" }}
             >
                 알고리즘과 인공지능을 깊이 있게 탐구하는
@@ -82,16 +84,16 @@ export const HeroSection = () => {
                 포항공과대학교 동아리, <span className="font-bold text-stone-900">POSCAT</span>입니다.
             </p>
 
-            <div data-hero="cta" className="mx-auto mt-8 flex flex-wrap gap-4" style={{ visibility: "hidden" }}>
+            <div data-hero="cta" className="mt-8 flex flex-wrap gap-4" style={{ visibility: "hidden" }}>
                 <a
                     href="#focus"
-                    className="rounded-full bg-stone-950 px-7 py-3.5 text-sm font-medium text-white transition hover:bg-rose-400"
+                    className="rounded-full bg-stone-950 px-7 py-2.5 text-sm font-medium text-white transition hover:bg-rose-400"
                 >
                     더 알아보기
                 </a>
                 <a
                     href="#join"
-                    className="rounded-full border border-stone-200 bg-white px-7 py-3.5 text-sm font-medium text-stone-700 transition hover:border-stone-300 hover:bg-stone-50"
+                    className="rounded-full border border-stone-200 bg-white px-7 py-2.5 text-sm font-medium text-stone-700 transition hover:border-stone-300 hover:bg-stone-50"
                 >
                     지원하기
                 </a>

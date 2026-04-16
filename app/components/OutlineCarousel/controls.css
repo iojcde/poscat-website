@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 .dot-inner {
-    @apply h-2 rounded-full bg-stone-400 relative transition-[min-width] overflow-hidden;
+    @apply h-2 rounded-full bg-stone-500/90 relative transition-[min-width] overflow-hidden;
     transition-timing-function: cubic-bezier(0.33, 0, 0.67, 1);
     transition-duration: 400ms;
 }

@@ -39,6 +39,7 @@ export const Controls = ({ activeSection, setActiveSection, isRunning, setIsRunn
             onEnterBack: () => { disappearTl.pause(); appearTl.restart(); },
             fastScrollEnd: true,
             preventOverlaps: true,
+            once: true,
         });
 
         // ── Appear: scale in control pill ──
@@ -76,21 +77,21 @@ export const Controls = ({ activeSection, setActiveSection, isRunning, setIsRunn
             { autoAlpha: 1, x: 0, duration: 0.2, ease: "power2.out" }, "appear+=0.9"
         );
 
-        // ── Disappear: fade dots → collapse tabs → scale out ──
-        disappearTl
-            .add("disappear")
-            .to(".outline-control-container .dot", { autoAlpha: 0, x: 20, duration: 0.2 })
-            .to(
-                ".outline-control-inner .tabs",
-                { width: "56px", x: 0, duration: 0.5, ease: "power2.inOut" },
-                "disappear"
-            )
-            .to(
-                ".outline-control-inner .play-pause",
-                { x: 0, duration: 0.5, ease: "power2.inOut" },
-                "disappear"
-            )
-            .to(".outline-control-inner", { scale: 0, duration: 0.4, ease: "power2.inOut" });
+        // // ── Disappear: fade dots → collapse tabs → scale out ──
+        // disappearTl
+        //     .add("disappear")
+        //     .to(".outline-control-container .dot", { autoAlpha: 0, x: 20, duration: 0.2 })
+        //     .to(
+        //         ".outline-control-inner .tabs",
+        //         { width: "56px", x: 0, duration: 0.5, ease: "power2.inOut" },
+        //         "disappear"
+        //     )
+        //     .to(
+        //         ".outline-control-inner .play-pause",
+        //         { x: 0, duration: 0.5, ease: "power2.inOut" },
+        //         "disappear"
+        //     )
+        //     .to(".outline-control-inner", { scale: 0, duration: 0.4, ease: "power2.inOut" });
 
         // ── Auto-advance on dot animation end ──
         document.querySelectorAll(".dot-inner").forEach((d, index) => {
@@ -100,9 +101,10 @@ export const Controls = ({ activeSection, setActiveSection, isRunning, setIsRunn
         });
 
         // ── Pause on section click (desktop only) ──
-        document.querySelectorAll(".outline-section .section").forEach((s) => {
+        document.querySelectorAll(".outline-section .section").forEach((s, i) => {
             s.addEventListener("click", () => {
                 if (window.innerWidth < 1024) return;
+                if (activeSection == i) return
                 setIsRunning(false);
             });
         });
@@ -141,10 +143,10 @@ export const Controls = ({ activeSection, setActiveSection, isRunning, setIsRunn
     };
 
     return (
-        <div className="outline-control-container pointer-events-none absolute inset-0 z-20 flex my-8 justify-center items-end">
+        <div className="outline-control-container pointer-events-none absolute inset-0 z-20 flex mb-8 mt-16 justify-center items-end">
             <div className="outline-control-inner pointer-events-auto scale-0 translate-y-8 sticky bottom-12 h-14 w-14 rounded-full">
                 <div className="relative">
-                    <div className="tabs  h-14 rounded-full bg-neutral-200/50 backdrop-blur flex items-center">
+                    <div className="tabs  h-14 rounded-full bg-neutral-200/70 backdrop-blur-[7px] flex items-center">
                         <div className="inline-flex h-full w-full items-center justify-center rounded-full  px-4">
                             <button
                                 onClick={() => activateSection(0)}
@@ -206,7 +208,7 @@ export const Controls = ({ activeSection, setActiveSection, isRunning, setIsRunn
                                 viewBox="0 0 10 13"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="invisible dot text-black pause-button"
+                                className="invisible dot text-black/90 pause-button"
                             >
                                 <g clipPath="url(#clip0_27_83)">
                                     <path

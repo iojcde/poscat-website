@@ -22,18 +22,18 @@ const SectionTitle = ({ children, className }: { children: React.ReactNode; clas
 const AboutSection = () => (
     <section id="about" className="flex h-full w-full flex-col justify-between px-6 py-10 md:px-10 md:py-12 lg:px-12">
         <div className="max-w-2xl">
-            <Eyebrow>About POSCAT</Eyebrow>
+            <Eyebrow>소개</Eyebrow>
             <SectionTitle>
                 <span className="sweep-algorithm">알고리즘</span>과{" "}
                 <span className="sweep-ai">AI</span>,<br />
-                개념부터 심화까지            </SectionTitle>
+                개념부터 심화까지.            </SectionTitle>
             <p className="mt-5 max-w-lg text-lg leading-8 text-neutral-500">
 
                 우리는 논리적 사고의 정수인 알고리즘을 통해 문제 해결 능력을 단련하고, 데이터 속에서 새로운 가치를 창출하는 인공지능 기술을 탐구합니다.
             </p>
 
             <p className="mt-5 max-w-lg text-lg leading-8 text-neutral-500 hidden lg:block" >
-                POSCAT은 단순히 코딩 기술을 배우는 것을 넘어, 미래 기술의 핵심이 될 두 분야의 깊이 있는 이해와 실질적인 경험을 쌓는 최고의 커뮤니티입니다.
+                POSCAT은 단순히 코딩을 배우는 것을 넘어, 미래 기술의 핵심이 될 분야의 깊이 있는 이해와 경험을 쌓을 수 있는 최고의 커뮤니티입니다.
             </p>
         </div>
 
@@ -59,7 +59,7 @@ const AboutSection = () => (
 const ActivitiesSection = () => (
     <section id="activities" className="flex h-full w-full flex-col justify-between px-6 py-10 md:px-10 md:py-12 lg:px-12 w-full">
         <div className="max-w-2xl">
-            <Eyebrow>What we do</Eyebrow>
+            <Eyebrow>활동</Eyebrow>
             <SectionTitle>매주 꾸준히,<br />함께 성장하는 곳.</SectionTitle>
             <p className="mt-5 text-lg leading-8 text-neutral-500">
                 정규 세션으로 기본기를 다지고, 스터디와 프로젝트로 더 깊게 파고듭니다.
@@ -91,10 +91,10 @@ const ActivitiesSection = () => (
 const LookingForSection = () => (
     <section id="looking-for" className="flex h-full w-full flex-col justify-between px-6 py-10 md:px-10 md:py-12 lg:px-12 relative">
         <div className="max-w-2xl relative z-10">
-            <Eyebrow><span className="text-stone-700">Who we look for</span></Eyebrow>
-            <SectionTitle>잘하는 사람보다,<br />  사람.</SectionTitle>
+            <Eyebrow><span className="text-stone-700">카와이 다케쟈 다메데스카?</span></Eyebrow>
+            <SectionTitle>와우</SectionTitle>
             <p className="mt-5 text-lg leading-8 text-stone-900">
-                배우고 싶은 마음과 함께 성장하려는 자세면 충분합니다.
+                placeholder123 123
             </p>
         </div>
 
@@ -105,8 +105,8 @@ const LookingForSection = () => (
 const CompetitionSection = () => (
     <section id="competition" className="flex h-full w-full flex-col justify-between px-6 py-10 md:px-10 md:py-12 lg:px-12 relative z-10">
         <div className="max-w-2xl relative z-10">
-            <Eyebrow>Compete & Win</Eyebrow>
-            <SectionTitle className="text-white"><span className="text-postech">POSTECH</span>의 이름으로,<br />승리를 향해 &rarr;</SectionTitle>
+            <Eyebrow>대회 출전</Eyebrow>
+            <SectionTitle className="text-white"><span className="text-postech">POSTECH</span>의 이름으로,<br />승리를 향하여.</SectionTitle>
             <p className="mt-5 text-lg leading-8 text-neutral-100">
                 알고리즘 분야에서 ICPC를, AI 분야에서 <br /> 포스텍-카이스트 학생대제전 우승을 목표합니다.
             </p>

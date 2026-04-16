@@ -18,12 +18,12 @@ import * as THREE from 'three'
 import { useThree } from '@react-three/fiber'
 
 export type SoftShadowsProps = {
-    /** Size of the light source (the larger the softer the light), default: 25 */
-    size?: number
-    /** Number of samples (more samples less noise but more expensive), default: 10 */
-    samples?: number
-    /** Depth focus, use it to shift the focal point (where the shadow is the sharpest), default: 0 (the beginning) */
-    focus?: number
+  /** Size of the light source (the larger the softer the light), default: 25 */
+  size?: number
+  /** Number of samples (more samples less noise but more expensive), default: 10 */
+  samples?: number
+  /** Depth focus, use it to shift the focal point (where the shadow is the sharpest), default: 0 (the beginning) */
+  focus?: number
 }
 
 const pcss = ({ focus = 0, size = 25, samples = 10 }: SoftShadowsProps = {}) => `
@@ -129,44 +129,44 @@ float PCSS (sampler2D shadowMap, vec4 coords) {
 }`
 
 interface ThreeObject extends THREE.Object3D {
-    material?: THREE.Material;
+  material?: THREE.Material;
 }
 
 function reset(gl: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Camera): void {
-    scene.traverse((object: THREE.Object3D) => {
-        const typedObject = object as ThreeObject;
-        if (typedObject.material) {
-            gl.properties.remove(typedObject.material);
-            typedObject.material.dispose?.();
-        }
-    });
-    if (gl.info.programs) {
-        gl.info.programs.length = 0;
+  scene.traverse((object: THREE.Object3D) => {
+    const typedObject = object as ThreeObject;
+    if (typedObject.material) {
+      gl.properties.remove(typedObject.material);
+      typedObject.material.dispose?.();
     }
-    gl.compile(scene, camera);
+  });
+  if (gl.info.programs) {
+    gl.info.programs.length = 0;
+  }
+  gl.compile(scene, camera);
 }
 
 export function SoftShadows({ focus = 0, samples = 10, size = 25 }: SoftShadowsProps) {
-    const gl = useThree((state) => state.gl)
-    const scene = useThree((state) => state.scene)
-    const camera = useThree((state) => state.camera)
-    React.useEffect(() => {
-        const original = THREE.ShaderChunk.shadowmap_pars_fragment
-        THREE.ShaderChunk.shadowmap_pars_fragment = THREE.ShaderChunk.shadowmap_pars_fragment
-            .replace('#ifdef USE_SHADOWMAP', '#ifdef USE_SHADOWMAP\n' + pcss({ size, samples, focus }))
-            .replace(
-                '#if defined( SHADOWMAP_TYPE_PCF )',
-                '#if defined( SHADOWMAP_TYPE_PCF )'
-            )
-            .replace(
-                'return getShadow( shadowMap, shadowCoord.xy, shadowCoord.z, shadowCoord.w );',
-                'return PCSS(shadowMap, shadowCoord);'
-            )
-        reset(gl, scene, camera)
-        return () => {
-            THREE.ShaderChunk.shadowmap_pars_fragment = original
-            reset(gl, scene, camera)
-        }
-    }, [focus, size, samples])
-    return null
+  const gl = useThree((state) => state.gl)
+  const scene = useThree((state) => state.scene)
+  const camera = useThree((state) => state.camera)
+  React.useEffect(() => {
+    const original = THREE.ShaderChunk.shadowmap_pars_fragment
+    THREE.ShaderChunk.shadowmap_pars_fragment = THREE.ShaderChunk.shadowmap_pars_fragment
+      .replace('#ifdef USE_SHADOWMAP', '#ifdef USE_SHADOWMAP\n' + pcss({ size, samples, focus }))
+      .replace(
+        '#if defined( SHADOWMAP_TYPE_PCF )',
+        '#if defined( SHADOWMAP_TYPE_PCF )'
+      )
+      .replace(
+        'return getShadow( shadowMap, shadowCoord.xy, shadowCoord.z, shadowCoord.w );',
+        'return PCSS(shadowMap, shadowCoord);'
+      )
+    reset(gl, scene, camera)
+    return () => {
+      THREE.ShaderChunk.shadowmap_pars_fragment = original
+      reset(gl, scene, camera)
+    }
+  }, [focus, size, samples])
+  return null
 }
