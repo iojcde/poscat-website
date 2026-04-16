@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 export const metadata: Metadata = {
   title: "POSCAT — Algorithm & AI at POSTECH",
   description:
-    "POSCAT is the algorithm and AI community at POSTECH, built around deep problem solving, research curiosity, and collaborative growth.",
+    "포항공과대학교의 유일무이 알고리즘 & 인공지능 동아리, POSCAT입니다.",
 };
 
 export default function RootLayout({
