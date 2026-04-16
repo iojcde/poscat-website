@@ -21,7 +21,7 @@ export const HeroSection = () => {
 
             // Set initial state
             gsap.set("[data-hero]:not([data-hero='h1'])", { autoAlpha: 0, y: 28 });
-            gsap.set("[data-hero='mascot']", { autoAlpha: 0, y: 24, x: 20, scale: 0.96 });
+            gsap.set("[data-hero='mascot']", { autoAlpha: 0, y: 24, x: 20, scale: 0.8 });
 
             // Show the parent element now that javascript has loaded
             // (we hid it in HTML to prevent FOUC)
@@ -41,9 +41,8 @@ export const HeroSection = () => {
             })
                 .to("[data-hero='h2']", { autoAlpha: 1, y: 0, duration: 0.8 }, "<0.3")
                 .to("[data-hero='p']", { autoAlpha: 1, y: 0, duration: 0.8 }, "<0.2")
-                .to("[data-hero='mascot']", { autoAlpha: 1, y: 0, x: 0, scale: 1, duration: 0.5, ease: "power4.out", rotate: 10 }, "<0.1")
                 .to("[data-hero='cta']", { autoAlpha: 1, y: 0, duration: 0.8 }, "<0.2")
-                ;
+                .to("[data-hero='mascot']", { autoAlpha: 1, y: 0, x: 0, scale: 1, duration: 0.7, ease: "power4.out", rotate: 10 }, "<");
         }, el);
 
         return () => ctx.revert();
