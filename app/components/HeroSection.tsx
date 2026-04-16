@@ -41,8 +41,9 @@ export const HeroSection = () => {
             })
                 .to("[data-hero='h2']", { autoAlpha: 1, y: 0, duration: 0.8 }, "<0.3")
                 .to("[data-hero='p']", { autoAlpha: 1, y: 0, duration: 0.8 }, "<0.2")
+                .to("[data-hero='mascot']", { autoAlpha: 1, y: 0, x: 0, scale: 1, duration: 0.5, ease: "power2.out" }, "<0.2")
                 .to("[data-hero='cta']", { autoAlpha: 1, y: 0, duration: 0.8 }, "<0.2")
-                .to("[data-hero='mascot']", { autoAlpha: 1, y: 0, x: 0, scale: 1, duration: 0.7 });
+                ;
         }, el);
 
         return () => ctx.revert();
@@ -100,7 +101,7 @@ export const HeroSection = () => {
                     </a>
                 </div></div>
             <img
-                src="/mascot.png"
+                src="/mascot.png" style={{ visibility: "hidden" }}
                 data-hero="mascot"
                 className="absolute inset-0 mt-auto right-0 lg:right-20 -bottom-10 max-w-50 xl:max-w-200 opacity-100 ml-auto"
             />
