@@ -3,18 +3,20 @@
 import "./controls.css";
 import { cn } from "@/app/lib/utils";
 import gsap from "gsap";
-import { CustomEase } from "gsap/CustomEase";
-import Draggable from "gsap/Draggable";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-import { useEffect, useState } from "react";
+import { CustomEase, Draggable, ScrollToPlugin, ScrollTrigger } from "gsap/all";
+import { type Dispatch, type SetStateAction, useEffect } from "react";
 
-export const Controls = ({ activeSection, setActiveSection, isRunning, setIsRunning }) => {
+type ControlsProps = {
+    activeSection: number;
+    setActiveSection: Dispatch<SetStateAction<number>>;
+    isRunning: boolean;
+    setIsRunning: Dispatch<SetStateAction<boolean>>;
+};
+
+export const Controls = ({ activeSection, setActiveSection, isRunning, setIsRunning }: ControlsProps) => {
 
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, CustomEase, Draggable);
-
-        const outlineSection = () => document.querySelector(".outline-section");
 
         // ── Appear timeline ──
         const appearTl = gsap.timeline({
